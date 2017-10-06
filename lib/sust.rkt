@@ -1,6 +1,10 @@
 #!/usr/bin/racket
 #lang racket
-;;; (provide abac)
+(provide =)
 (define (= val znak val2)
-  (znak val val2))
-(= 3 + 4)
+  (cond 
+  [(equal? znak + ) (znak val val2)]
+  [(equal? znak - ) (znak val val2)]
+  [(equal? znak * ) (znak val val2)]
+  [(equal? znak / ) (znak val val2)]
+  [else "Что-то не так"]))

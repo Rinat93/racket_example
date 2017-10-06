@@ -1,9 +1,8 @@
 #!/usr/bin/racket
 #lang racket
-;;; (require "lib/sust.rkt")
+(require "lib/sust.rkt")
 (require "conf/settings.rkt")
-;;; (abac "the boy hui loh xmo kj")
-
+(= (+ 3 13) / 4)
 (hash-ref database "Server")
 ;;; Функция main с условиями
 (define (main stings)
@@ -11,5 +10,5 @@
     (cond
     [(equal? "Проверяем " stings) (string-append stings "Test") ] 
     [else "Нечего не вышло :( " ] ))
-;;; (main "Проверяем ")
+(main "Проверяем ")
 ;;; (list "core" "module" "static" "template")
