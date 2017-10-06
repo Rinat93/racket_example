@@ -1,30 +1,17 @@
 #!/usr/bin/racket
-#lang racket/gui
-; Make a frame by instantiating the frame% class
-(define frame (new frame% [label "Example"]))
- ; Make a static text message in the frame
-(define msg (new message% [parent frame]
-                          [label "No events so far..."]))
+#lang racket
+(require racket/contract)
+(provide (contract-out
+          [deposit (-> number? any)]
+          [balance (-> number?)]))
  
-; Make a button in the frame
-(new button% [parent frame]
-             [label "Click Me"]
-             ; Callback procedure for a button click:
-             [callback (lambda (button event)
-                         (send msg set-label "Button click"))])
-; Derive a new canvas (a drawing window) class to handle events
-(define my-canvas%
-  (class canvas% ; The base class is canvas%
-    ; Define overriding method to handle mouse events
-    (define/override (on-event event)
-      (send msg set-label "Canvas mouse"))
-    ; Define overriding method to handle keyboard events
-    (define/override (on-char event)
-      (send msg set-label "Canvas keyboard"))
-    ; Call the superclass init, passing on all init args
-    (super-new)))
- 
-; Make a canvas that handles events in the frame
-(new my-canvas% [parent frame])                         
-; Show the frame by calling its show method
-(send frame show #t)
+(define amount 0)
+(define (deposit a) (set! amount (+ amount a)))
+(define (balance) amount)
+;;; (module+ server
+;;;   (provide (contract-out [amount (and/c number? positive?)]
+;;;             []))
+;;;   (define amount 150))
+;;; (module+ main
+;;;   (require (submod ".." server))
+;;;   (+ amount 10))
